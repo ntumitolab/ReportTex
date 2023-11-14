@@ -1,7 +1,10 @@
 name: 'Build LaTex Document'
 on: 
   push:
-    branches: [main]
+    branches: 
+      - main
+    tags:
+      - '*'
   pull_request:
     branches: [main]
 
