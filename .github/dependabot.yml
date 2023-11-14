@@ -6,6 +6,4 @@ updates:
     schedule:
       interval: "daily"
     labels:
-    - "GH Actions"
-    commit-message:
-      prefix: ci
+    - "automerge"
