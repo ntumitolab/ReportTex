@@ -1,7 +1,7 @@
 name: 'Build LaTex Document'
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
     tags:
       - '*'
@@ -10,7 +10,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - uses: actions/cache@v3.3.2
@@ -22,7 +24,7 @@ jobs:
         key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
         restore-keys: |
            ${{ runner.os }}-tectonic-
-    - name: Download CJK fonts 
+    - name: Download CJK fonts
       run: |
         mkdir -p ~/.local/share/fonts
         wget -nc -P ~/.local/share/fonts -i fonts.txt
