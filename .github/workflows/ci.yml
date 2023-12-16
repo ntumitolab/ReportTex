@@ -1,4 +1,4 @@
-name: 'Build LaTex Document'
+name: Build LaTex Document
 on:
   push:
     branches:
@@ -6,15 +6,19 @@ on:
     tags:
       - '*'
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Download CJK fonts
+      run: audo aptupdate && sudo apt install -y fonts-noto-cjk
     - uses: actions/cache@v3.3.2
       name: Cache tectonic and fonts
       with:
@@ -24,17 +28,13 @@ jobs:
         key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
         restore-keys: |
            ${{ runner.os }}-tectonic-
-    - name: Download CJK fonts
-      run: |
-        mkdir -p ~/.local/share/fonts
-        wget -nc -P ~/.local/share/fonts -i fonts.txt
-        fc-cache -fv
-    - uses: wtfjoke/setup-tectonic@v3.0.2
+    - name: Setup tectonic
+      uses: wtfjoke/setup-tectonic@v3.0.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Compile TeX to PDF
       run: tectonic main.tex
-    - name: Release
+    - name: Tag release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
