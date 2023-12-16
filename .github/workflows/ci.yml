@@ -18,7 +18,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Download CJK fonts
-      run: audo aptupdate && sudo apt install -y fonts-noto-cjk
+      run: sudo apt update && sudo apt install -y fonts-noto-cjk
     - uses: actions/cache@v3.3.2
       name: Cache tectonic and fonts
       with:
