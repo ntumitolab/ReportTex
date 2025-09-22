@@ -29,7 +29,7 @@ jobs:
         restore-keys: |
            ${{ runner.os }}-tectonic-
     - name: Setup tectonic
-      uses: wtfjoke/setup-tectonic@v3.1.4
+      uses: wtfjoke/setup-tectonic@v4.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Compile TeX to PDF
