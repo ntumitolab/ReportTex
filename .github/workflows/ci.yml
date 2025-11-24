@@ -16,7 +16,7 @@ jobs:
       contents: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Download CJK fonts
       run: sudo apt update && sudo apt install -y fonts-noto-cjk
     - uses: actions/cache@v4.3.0
